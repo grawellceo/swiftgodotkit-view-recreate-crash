@@ -1,0 +1,20 @@
+# Build output and generated projects (XcodeGen makes the .xcodeproj)
+.build/
+DerivedData/
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+.swiftpm/
+
+# Godot's import cache and export temp files
+godot/.godot/
+*.tmp.pck
+
+# Crash reports and local drafts (machine-specific)
+*.ips
+*.crash
+crash-reports/
+drafts/
+
+# macOS
+.DS_Store

@@ -1,0 +1,41 @@
+# XcodeGen spec. Run `xcodegen` here. game.pck is committed; ../make-pck.sh rebuilds it.
+name: SGKRepro
+
+options:
+  deploymentTarget:
+    iOS: "17.0"
+
+packages:
+  SwiftGodotKit:
+    url: https://github.com/migueldeicaza/SwiftGodotKit
+    revision: b361ea0bc752dfe3dc596c8c6d906750631aba4f
+  SwiftGodotBinary:
+    url: https://github.com/migueldeicaza/SwiftGodotBinary
+    exactVersion: 0.99.2
+
+targets:
+  SGKRepro:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: game.pck
+        buildPhase: resources
+    dependencies:
+      - package: SwiftGodotKit
+        product: SwiftGodotKit
+      - package: SwiftGodotBinary
+        product: SwiftGodot
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.sgkrepro
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        # libgodot is a static archive with Objective-C categories.
+        OTHER_LDFLAGS: $(inherited) -ObjC
